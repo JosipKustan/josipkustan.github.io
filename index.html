@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Roboto+Slab&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./CSS/lightbox.css">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="CSS/table.css">
+
+    <script src="./JS/lightbox-plus-jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="JS/three.min.js"></script>
+    <script src="JS/GLTFLoader.js"></script>
+    <script src="JS/showmore.js"></script>
+
+  
+    <title>WeboPageo</title>
+</head>
+<body>
+    
+      <!--NAVIGATION-->
+      <nav class="navbar">
+        <!--NAME-->
+        <div class="logo">
+          
+          <h4>Josip Kuštan</h4>
+        </div>
+        
+        <!--NAVBARS-->
+          <ul class="nav-links">
+            <li>
+              <a href="#home">Home</a>
+            </li>
+            <li>
+              <a href="#myWork">Work</a>
+            </li>
+            <li>
+              <a href="#aboutMe">About me</a>
+            </li>
+            <li>
+              <a href="#contactMe">Contact</a>
+            </li>
+            <li>
+              <a href="#project">Project</a>
+            </li>
+          </ul>
+          <!--BURGER:)-->
+          <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+            
+          </div>
+        </nav>
+        
+        <!--Home Section/FIRST PAGE /-->
+        <!--Timelapse Section-->
+        <!--SECTION1-->
+    <div>
+        <section id="home"> 
+          <div>
+            <video id="videoBG" type="video/mp4" poster="./img/Blurred_poster.PNG" autoplay muted loop>
+            <source src="./img/Videos/webreel_medium.mp4" type="video/mp4">
+            </video>
+        <div class="hero-text">
+          <div class="hero-text-a">
+            <h1>TRY </h1>          
+          </div>
+          <div class="hero-text-b">
+            <h1>to</h1>
+          </div>
+          <div class="hero-text-c">
+            <h1>MAKE</h1>
+          </div>
+          <div class="hero-text-d">
+            <h2>EVERYTHING</h2>
+          </div>
+        </div>
+      </div>
+      </section>
+    </div>
+      <!--Pictures-->
+      <!--SECTION2-->
+    <div class="wrapper">
+      <Section id="myWork">
+        <div class="slim-arrow">
+          <img src="./img/Small_arrow_white.png" alt="slim_arrow">
+          <h4>Some of my works</h4>
+        </div>
+        <div class="worksection"> 
+          <div class="img_container">
+            <div class="fade-in">
+              <h3>3D PRINTING</h3>
+              <a href="./img/3dPrinting-small.jpg" data-lightbox="3DGallery" data-title="3D Printing" ><img src="./img/3dPrinting-small.jpg" alt="3dPrinting"  ></a>
+            </div>
+            <div class="fade-in"> 
+              <h3>MINIATURES</h3>
+              <a href="./img/Kresetina.JPG"  data-lightbox="MiniatureArtGallery" data-title="Krešetina - Work of Filip Valjavec(digital 3D model editor and printing) and Josip Kuštan (paint job)" ><img src="./img/Kresetina_small.JPG" alt="KREŠO"> </a>
+              <!-- HIDEN -->
+              <a href="./img/Batman.jpg"  data-lightbox="MiniatureArtGallery" data-title="Batman- model by B3DSERK studio" alt="Batman" class="lightbox_hide_image"> </a>
+              <a href="./img/Gallery/Kratos.JPG"  data-lightbox="MiniatureArtGallery" data-title="God of War- Kratos" alt="Bios" class="lightbox_hide_image"> </a>
+              <a href="./img/Bios.JPG"  data-lightbox="MiniatureArtGallery" data-title="Duke of B'ios" alt="Bios" class="lightbox_hide_image"> </a>
+            </div>
+            <div class="fade-in">
+              <h3>DIGITAL ART</h3>
+              <a href="./img/Rainbowbib.png" data-lightbox="DigitalArtGallery" data-title="Digital Art- Bird of Paradise"> <img src="./img/Rainbowbib_small.png" alt="DigitalArt"> </a>
+            </div>
+            <div class="fade-in">
+              <h3>TRADITIONAL ART</h3>
+              <a href="./img/Gallery/RastovacPainting.jpg" data-lightbox="TraditionalGallery" data-title="'Rastovac'"><img src="./img/RastovacPainting_small.jpg" alt="TraditionalArt"></a>
+
+              <a href="./img/Gallery/LoUPainting.jpg"  data-lightbox="TraditionalGallery" data-title="Last of Us- 'Remebering Seattle'" alt="Bios" class="lightbox_hide_image"> </a>
+            </div>
+            <div class="fade-in">
+              <h3>WOOD WOORKING</h3>
+              <a href="./img/wand.jpg" data-lightbox="WoodWorkingArtGallery" data-title="Wood working- Cherry wood Harry Potter's wand 'Holly'"><img src="./img/wand_small.jpg" alt="WoodWorking"></a>
+            </div>
+            <div class="fade-in">
+              <h3>DIORAMA</h3>
+              <a href="./img/Gallery/DioramaRastovac2.jpg" data-lightbox="DioramaArtGallery" data-title="Diorama- 'House of the Old Lady'"><img src="./img/Gallery/DioramaRastovac_small.jpg" alt="Dioramas"></a>
+
+              <a href="./img/Gallery/Mushroom2.jpg"  data-lightbox="DioramaArtGallery" data-title="Mushroom house'" alt="Mushroom" class="lightbox_hide_image"> </a>
+              <a href="./img/Gallery/Mushroom3.jpg"  data-lightbox="DioramaArtGallery" data-title="Mushroom house '" alt="Mushroom" class="lightbox_hide_image"> </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- <div>
+          <video id="woodLoop" poster="./img/DrvaPoster.PNG" autoplay muted loop>
+            <source src="./img/Videos/c8.mp4" type="video/mp4">
+            </video> 
+            
+          </div>-->
+          
+          
+        </Section>
+      </div>  
+      
+      <!--AboutME-->
+      <!--SECTION3-->
+    <div class="wrapper">
+      <section class="fade-in" id="aboutMe">
+        <h4>Something about me</h4>
+
+        <div class="aboutMecontent">
+          <div class="paragraf">
+            <p>I am a pasonate amature maker of things and Software Engineer student! <span id="dots">...</span>
+              <br>
+              <br>
+              <span id="more">I usually take projects way too big for my skill and try to make'em work. Problem solving is a part of everything I do! New challanges are a good way to push my skill forward and thats why I try to work in a lot of diferent fields. Always loved to craft and make, but it all really started when I wanted to make my D&D game more fun. Started with simple cardboard tiles and black and white acylic colors. Building up my material and color stash until I bought a 3D printer. It all sky rocketed from there. Now my room is not a room anymore but a workshop with a bed! </span></p>
+          </div>
+            <button onclick="showmore()" id="myBtn">Read more</button>
+
+          
+              <div class="paragraf">
+              <p>
+                I make custom things and if you are interested in something or have an idea! You can <a style="text-decoration:none" style="color: #557a95" href="#contactMe">contact me</a> and we will see if I can make something for you!
+              </p>
+          </div>
+            <!-- "D&D Atlas" (https://skfb.ly/6rSZV) by wardd is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/). -->
+        
+
+          
+        </div>
+      </section>
+    </div>  
+      
+ 
+<!--ContactME
+    section4 -->
+    <div class="wrapper">
+      <section id="contactMe">
+          <h6 style="color: rgb(212, 212, 212);">Got a project in mind?</h6>
+          <h4 style="color:white;">LET'S TALK!</h4>
+
+          <div class="contactContainer">
+
+            <div class="contactGrid">
+             
+              
+              
+              <form action="http://www.fulek.com/VUA/SUPIT/ContactUs" method="POST">
+                <div>
+                  <label for="Full name">Full name:</label>
+                  <input type="text" name="name"  required id="fullname" placeholder="eg:Johnas Dough">
+                </div>
+                <div>
+                  <label for="E-mail">E-mail   :</label>
+                  <input type="email" name="email" required id="email" placeholder="eg:jdough@jdo.com">
+                </div>
+                <div>
+                  <label    for="Importance"> Importance: </label>
+                  <select class="lbselect" name="importance" id="importance">
+                    <option value="Low Importance">Low Importance</option>
+                    <option value="High Importance">High Importance</option>
+                  </select>
+                </div>
+                <div class="gridInput">
+                  <label  for="Gift">  Is this a gift?</label> 
+                  <input class="smallerselect" type="checkbox" name="newsletter" id="gift" >
+            
+                  
+                </div>
+                <br>
+                <div>
+                  <label for="Message">Message</label>
+                  <input class="message" type="text" name="message" id="message" placeholder="write you message here" maxlength="5000">
+                </div>
+                <br>
+                <div>
+                  <button type="reset">Reset</button>
+                  
+                  <button type="submit">Submit</button>
+                </div>
+            
+              </form>
+    
+              
+              
+            </div>
+
+            <div class="socialMedia">
+              <h5>Reach me on social media!</h5>
+              <div>
+
+                <ul>
+                <li><a href="https://www.linkedin.com/in/josip-kuštan-452189201/" class="fa fa-linkedin"> </a></li>
+                <li><a href="https://www.instagram.com/kukicrafts/" class="fa fa-instagram"> </a></li>
+                <li><a href="https://www.facebook.com/josip.kustan.39" class="fa fa-facebook"> </a></li> 
+                </ul>
+
+              </div>
+    
+            </div>
+          </div>
+      </section>
+    </div>  
+<!-- ======================================================================= -->
+<!-- TABLICA -->
+<!-- ======================================================================= -->
+    <div>
+      <div class="subjectContainer">
+        <div id="subjectSearch">
+            <div class="autocomplete">
+                <label for="subjectInput">Naziv kolegija:</label>
+                <input id="subjectInput" type="text" name="Subject" autofocus placeholder=" ...Unos kolegija...">
+                <button id="addSubject" onclick="AddSubjectToTable()">Add Subject</button> 
+            </div>
+        </div>
+    <div>
+      
+      <div id="table-responsive-sm">
+          <table class="table-sm">
+              <thead></thead>
+              <tbody></tbody>
+              <tfoot></tfoot>
+          </table>
+      </div>
+
+    </div>
+    </div>
+    </div>
+    <!--Project
+    section5 -->
+    <div class="wrapper">
+      <section id="project">
+        <h4>Project I am working on!</h4>
+          <div class="scene">
+          
+           <!-- ship animation -->
+          </div>
+          <div class="projectGrid">
+            <div>
+              <p>Tu bu slika</p>
+            </div>
+
+          </div>
+
+        
+      </section>
+      
+    </div> 
+    
+   
+      
+  
+    
+  </body>
+      <script src="JS/TableCreate.js"></script>
+      <script src="JS/AutoCoplete.js"></script>
+      <script src="JS/GetJSON.js"></script>
+      <script src="JS/wireframeObjects.js"></script>
+      <script src="JS/nav.js"></script>
+      <script src="JS/SmoothScroll.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      
+</html>

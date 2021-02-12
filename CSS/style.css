@@ -1,0 +1,615 @@
+:root{
+    --pale-white: rgba(242, 228, 242, 1);
+    --dark-purple: #557a95;
+    --dark-purple-trans: #557a95a9;
+    --xiketic: rgba(20, 13, 28, 1);
+    --black: #1d1d1f;
+    
+    
+}
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+
+    font-family: 'Roboto', sans-serif;
+
+    font-family: 'Roboto Slab', serif;
+    
+}
+
+/* ========================================================================== */
+/*---------All headers--------*/
+/* ========================================================================== */
+h1{
+    font-family: 'Roboto Slab', serif, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+h3{
+    /* galleryNames */
+    color: var(--pale-white);
+    font-size: 3.5vw;
+}
+h5{
+    color: rgba(242, 228, 242, 1);
+    font-size: 3vh;
+}
+/* ========================================================================== */
+/*WORLD SECTION SETTINGS*/
+/* ========================================================================== */
+section{
+    width: 100%;
+    box-sizing: border-box;
+    /* scroll-behavior: smooth; */
+    
+}
+
+#home{
+    height: 100vh;
+}
+.wrapper{
+    background-color:var(--black);
+}
+
+
+/*for testing scroling delete later*/
+.content{
+    padding: 4rem ;
+}
+/* ========================================================================== */
+/*NAVIGATION BAR*/
+/* ========================================================================== */
+nav{
+    will-change: opacity;opacity: 0.7;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color:var(--dark-purple);
+    
+}
+.nav-links{
+    position: absolute;
+    right: 10%;
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    
+}
+.nav-links li{
+    text-align: center;
+    list-style: none;
+    padding: 1vh;
+    
+}
+.nav-links a{
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    opacity: 1;
+}
+.nav-links a:hover{
+    
+    color:white;
+    opacity: 0.7;
+}
+.burger{
+    display: none;
+    /* makes your curser into a pointer */
+    cursor: pointer;
+}
+.burger div{
+    width: 25px;
+    height: 3px;
+    background-color: var(--pale-white);
+    margin: 3px;
+    transition: all 0.3s ease;
+}
+/* ========================================================================== */
+/*?HERO? FRONT PAGE SETTINGS*/
+/* ========================================================================== */
+/* .hero-image{
+    background-image: url("./img/frontPage.png");
+    background-color: var(--xiketic);
+    width: auto;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+
+.hero-text-a {
+    text-align: left;
+    position: absolute;
+    top: 15%;
+    color: var(--pale-white);
+    font-size: 8vh;
+    margin-left: 4%;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.hero-text-b {
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    margin-left: 48%;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: var(--pale-white);
+    font-size: 6vh;
+}
+.hero-text-c {
+    text-align: right;
+    position: absolute;
+    top: 70%;
+    right: 0%;
+    color: var(--pale-white);
+    font-size: 8vh;
+    margin-right: 4%;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.hero-text-d{
+    position: absolute;
+    width: 100%;
+    bottom: 0vh;
+    text-align: center;
+    color: var(--pale-white) ;
+    background-color: var(--dark-purple-trans);
+    font-size: 5vh;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+/* ========================================================================== */
+
+/*FRONT PAGE VIDEO SETTINGS*/
+/* ========================================================================== */
+#videoBG{
+    position:absolute;
+    /*make it background*/
+    z-index: -1;
+    /* make it scale to middle */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    
+}
+
+/* ========================================================================== */
+/*NAME SETTINGS*/
+/* ========================================================================== */
+
+.logo{
+    position: absolute;
+    left:10%;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 1.3rem;
+    color: var(--pale-white);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+/*for Logo I wont use*/
+.imgRes{
+    position: absolute;
+    top: 1vh;
+    height: auto;
+    width: auto;   
+    max-width: 64px;
+    max-height: 64px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* MyWork/IMAGE GRID */
+/* put all in div */
+/* -------------------------------------------------------------------------- */
+.slim-arrow img{
+    display: block;
+    padding-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 128px;
+    max-height: 128px;
+    
+}
+#myWork h4{
+    font-size: 8vh;
+    text-align: center;
+    color: var(--pale-white);
+}
+.worksection{
+    padding-top: 2vh;
+    
+}
+.fade-in{
+    opacity: 0;
+    transition: opacity 350ms ease-in;
+}
+.fade-in.appear{
+    opacity: 1;
+}
+.img_container{
+    
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-left: 4em;
+    margin-right: 4em;
+}
+.img_container div{
+    text-align: center;
+    margin-top: 3vh;
+    
+}
+
+.img_container img{
+    position: static;
+    width: 90%;
+    padding: 3vh;
+    
+}
+
+.img_container img:hover{
+    
+    padding: 3vh;
+    opacity: 0.9;
+    transform: translate3d(0px, 0px, 0px) scale3d(1.02, 1.02, 1.02);
+    
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* AboutMEPage */
+/* -------------------------------------------------------------------------- */
+
+#aboutMe{
+    height: 100vh;
+    
+}
+#aboutMe h4{
+    color: var(--pale-white);
+    font-size: 8vh;
+    padding-top: 8vh;
+    text-align: center;
+    padding-left:6vw;
+    padding-right:6vw;
+}
+.aboutMecontent{
+    text-align: center;
+    grid-gap:3vh;
+    grid-row: auto;
+    margin-left: 4em;
+    margin-right: 4em;
+    padding-top: 10vh;
+}
+.paragraf{
+
+    font-size: 2vh;
+    text-align: center;
+    color: var(--pale-white);
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    padding-left: 2vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+
+}
+#more {display: none;}
+
+
+/* -------------------------------------------------------------------------- */
+/* ContactMe */
+/* -------------------------------------------------------------------------- */
+.contactContainer{
+    display: grid;
+    grid-template-columns: 40% 40%;
+    margin-left: 4em;
+    margin-right: 4em;
+    justify-content:space-around;
+    
+}
+#contactMe{
+    height: 100vh;
+    color: var(--pale-white);
+    padding-top: 10vh;
+    box-sizing: border-box;
+    
+}
+#contactMe h4{
+    text-align: center;
+    font-size: 10vh;   
+}
+#contactMe h6{
+    text-align: center;
+    font-size: 6vh;   
+}
+
+.gridInput{
+    display: flex;
+    
+    
+    align-content: centar;
+}
+
+.contactGrid{
+    width: 100%;
+    display: flex;
+    background-color:var(--dark-purple-trans);
+}
+.socialMedia ul{
+    align-items:center;
+    list-style: none;
+    
+}
+.socialMedia{
+    text-align: center;
+}
+#contactMe label{
+    
+    font-size:3vh;
+    padding-right: 2vw;
+    pointer-events: none;
+    transition: 0.8s;
+}
+/* ========================================================================== */
+/* isocialmedia */
+/* ========================================================================== */
+
+.fa {
+    padding: 20px;
+    font-size: 6vw;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    color:white;
+}
+
+
+
+#contactMe input,select{
+    
+    
+    position: relative;
+    font-size: 3vh;
+    margin-bottom: 0px;
+    padding-top: 8px;
+    padding-right: 0px;
+    padding-bottom: 8px;
+    border: 1px none #000;
+    background-color: transparent;
+    color: hsla(0, 0%, 100%, 0.7);   
+    outline:none;
+    
+    
+}
+.lbselect{
+    appearance: none;
+}
+select::-ms-expand {
+    display: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+}
+#contactMe option{
+    scrollbar-arrow-color: none;
+    background-color:var(--black);
+}
+#contactMe option:hover{
+    scrollbar-highlight-color: black;
+    background-color:var(--xiketic);
+}
+.smallerselect [type=checkbox]{
+    border-color: rgb(102, 102, 102);
+    background-color: rgb(109, 109, 109);
+    bottom: 1px;
+    
+}
+.message{
+    width: 100%;
+    font-size: 0.8em;
+    size: 200;
+}
+button{
+    color: var(--pale-white);
+    font-size: 1.4em;
+    border:none;
+    border-color: var(--dark-purple);
+    background-color:var(--dark-purple);
+    cursor:pointer;
+    margin-right: 10px;
+    padding-left: 6px;
+    padding-right: 6px;
+    
+    
+}
+
+#addSubject{
+    font-size: 1em;
+}
+/* ========================================================================== */
+/*RESPONSIVE DESIGN*/
+/* ========================================================================== */
+@media(min-aspect-ratio:16/9){
+    #videoBG{
+        /*SPECAL OPTIONS FOR VIDEO for proper scaling*/
+        width: 100%;
+        height: auto;
+    }
+}
+@media (max-aspect-ratio: 16/9){
+    #videoBG{
+        /*SPECAL OPTIONS FOR VIDEO for proper scaling*/
+        width: auto;
+        height: 100%;
+    }
+}
+
+
+/* ========================================================================== */
+/*changes into tablet and mobile view(make overflow hidden anywhere)/*/
+/* ========================================================================== */
+@media screen and (min-width:1026px){
+    body{
+        overflow-x: hidden;
+    }
+}
+@media screen and (max-width:1025px){
+    body{
+        overflow-x: hidden;
+    }
+    .nav-links{
+        width: 60%w;
+        opacity: 1;
+    }
+    .contactContainer{
+        grid-template-columns: 60% 40%;
+    }
+    #contactMe input,select{
+
+        font-size: 3vw;
+
+    }
+}
+@media screen and (max-width:768px){
+    #videoBG{
+        display: none;
+        
+    } 
+    body{
+        /*hides x overflow/navbar*/
+        overflow-x: hidden;
+        background: url("/img/Blurred_poster.PNG");
+        background-repeat: no-repeat;
+        background-position-x: 50%;
+    }
+    .img_container{
+        display: grid;
+        grid-template-columns: 100%;
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+    .contactContainer{
+        grid-template-columns: 60% 40%;
+    }
+    .aboutMecontent p{
+        text-align: left;
+        grid-gap:1vh;
+        grid-row: auto;
+        margin-left: 1vw;
+        margin-right: 1vw;
+        font-size: 1.7vh;
+        
+    }
+    #contactMe h4,h6{
+        font-size:5vh;
+    }
+    .contactGrid{
+        width: 90%;
+        
+    }
+    #contactMe input,select{
+
+        font-size: 3vw;
+
+    }
+    
+    /*NAVIHATION BAR SETTING WHEN IN MOBILE VIEW*/
+    .nav-links{
+        position: absolute;
+        right: 4%;
+        height: auto;
+        top: 8vh;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: auto;
+        transform: translateX(150%);
+        transition: transform 0.4s ease-in;
+        background-color:var(--dark-purple-trans);
+        
+        
+        
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .burger{
+        display: block;
+        position: absolute;
+        right: 10%;
+    }
+    .hero-text-d{
+        font-size: 8vw;
+    }
+    h3{
+        font-size: 5vh;
+    }
+}
+/* ========================================================================== */
+/* Project  */
+/* ========================================================================== */
+#project{
+    padding-top: 8vh;
+}
+.projectGrid{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+#project h4{
+    text-align: center;
+    font-size: 6vh;   
+    color:white;
+}
+.scene,canvas{
+    
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--black);
+    
+}
+.nav-active{
+    transform: translateX(0%);
+}
+/*mobile Navigation bar animation*/
+@keyframes navLinkFade{
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+/* ========================================================================== */
+/*animation for burger toogle*/
+/* ========================================================================== */
+.toggle .line1{
+    transform: rotate(-45deg) translate(-12px,-4px);
+}
+.toggle .line2{
+    opacity: 0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(-12px,4px);
+}
+
+.footer {
+    z-index:1;
+    height: auto;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.banner{
+    width: 100%;
+    height:auto;
+    border-image-repeat: none;
+}
+
+  
