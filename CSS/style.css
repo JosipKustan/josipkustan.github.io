@@ -484,7 +484,7 @@ button{
     body{
         /*hides x overflow/navbar*/
         overflow-x: hidden;
-        background: url("/img/frontPage.jpg");
+        background: url("/img/Gallery/frontPage.jpg");
         background-repeat: no-repeat;
         background-position-x: 50%;
     }
