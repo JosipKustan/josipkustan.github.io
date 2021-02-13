@@ -299,6 +299,10 @@ nav{
 
 }
 #more {display: none;}
+.cont-a{
+    text-decoration:none;
+    color: #557a95;
+}
 
 
 /* -------------------------------------------------------------------------- */
@@ -480,7 +484,7 @@ button{
     body{
         /*hides x overflow/navbar*/
         overflow-x: hidden;
-        background: url("/img/Blurred_poster.PNG");
+        background: url("/img/frontPage.jpg");
         background-repeat: no-repeat;
         background-position-x: 50%;
     }
