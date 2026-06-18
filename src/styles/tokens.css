@@ -1,0 +1,84 @@
+/* NewsLabs — Design Tokens
+   Ported from brand guide book colors_and_type.css
+   Fonts self-hosted from /public/fonts/
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap");
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mozilla Text";
+  src: url("/fonts/MozillaText-VariableFont_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Brand primitives */
+  --brand-blue:             oklch(0.581 0.229 270.2);  /* #4B65FF */
+  --brand-orange:           oklch(0.751 0.179 58.3);   /* #FF8C00 */
+  --brand-orange-muted:     oklch(0.49 0.158 50);      /* #C05B00 */
+  --ink:                    oklch(0.215 0.036 273.5);  /* #14182A */
+  --cream:                  oklch(0.977 0.005 78.3);   /* #F9F7F4 */
+
+  /* Semantic — light mode (marketing default) */
+  --background:             oklch(0.961 0.004 91.4);   /* #F3F2EF warm canvas */
+  --card:                   oklch(0.977 0.005 78.3);   /* #F9F7F4 */
+  --foreground:             oklch(0.215 0.036 273.5);  /* ink */
+  --muted-foreground:       oklch(0.45 0.02 270);
+  --primary:                oklch(0.483 0.203 262.3);  /* #1451CE */
+  --primary-foreground:     oklch(0.977 0.005 78.3);
+  --accent:                 oklch(0.55 0.158 50);      /* #C05B00 burnt orange */
+  --accent-foreground:      oklch(0.977 0.005 78.3);
+  --border:                 oklch(0.9 0.005 80);
+  --success:                oklch(0.52 0.15 150);
+
+  /* Dark section overrides (apply .dark class to sections) */
+  --dark-bg:                oklch(0.215 0.036 273.5);  /* ink */
+  --dark-card:              oklch(0.238 0.028 271.9);
+  --dark-card-hover:        oklch(0.258 0.028 271.9);
+  --dark-foreground:        oklch(0.9 0.007 85);
+  --dark-muted:             oklch(0.68 0.02 85);
+  --dark-border:            oklch(0.3 0.025 272);
+  --dark-primary:           oklch(0.581 0.229 270.2);  /* #4B65FF */
+
+  /* Radii */
+  --radius-sm:   0.375rem;
+  --radius-md:   0.625rem;
+  --radius-lg:   1rem;
+  --radius-xl:   1.5rem;
+
+  /* Shadows */
+  --shadow-xs:  0 1px 2px 0 oklch(0.215 0.036 273 / 0.06);
+  --shadow-sm:  0 1px 2px -1px oklch(0.215 0.036 273 / 0.08);
+  --shadow-md:  0 4px 12px -2px oklch(0.215 0.036 273 / 0.10),
+                0 2px 4px -2px oklch(0.215 0.036 273 / 0.06);
+  --shadow-lg:  0 12px 32px -4px oklch(0.215 0.036 273 / 0.12),
+                0 4px 8px -4px oklch(0.215 0.036 273 / 0.06);
+
+  /* Motion */
+  --dur-fast:   120ms;
+  --dur-base:   200ms;
+  --dur-slow:   320ms;
+  --ease-out:   cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-inout: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Typography */
+  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Mozilla Text", "Inter", sans-serif;
+  --font-serif:   "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-mono:    ui-monospace, "JetBrains Mono", Menlo, monospace;
+
+  /* Layout */
+  --max-width:    1200px;
+  --section-px:   clamp(24px, 5vw, 80px);
+  --section-py:   clamp(64px, 8vw, 120px);
+}

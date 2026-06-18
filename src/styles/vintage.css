@@ -1,0 +1,23 @@
+/* Vintage newsroom kit — shared CSS.
+   Single inlined SVG fractal-noise tile painted as a faint paper grain on the
+   cream sections. Plain alpha (no mix-blend-mode) keeps the compositor on the
+   cheap path; the tile is <1KB and static, so there is zero scroll cost.
+   Apply by adding className="vk-paper" to a position:relative section. */
+
+.vk-paper { position: relative; }
+
+.vk-paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px 120px;
+}
+
+/* Section content must sit above the grain. Direct children of a .vk-paper
+   section get a stacking context; the ::after stays at z-index 0 behind them. */
+.vk-paper > * { position: relative; z-index: 1; }
