@@ -25,7 +25,7 @@ const AP_SRC = {
 // behind. Human accountability is the spine — the byline (and the judgement) stays
 // human. The opening line backs the concession with two real, attributed adoption
 // figures (Reuters Institute / Oxford, AP) rendered as inline SourceCite citations:
-// on desktop each underlined phrase reveals a SOURCE card linking out; on mobile the
+// on desktop each highlighted phrase reveals a SOURCE card linking out; on mobile the
 // sources drop to a caption line under the paragraph. Three pillars carry the theme:
 //   1. Sources you can stand behind — drafts only from the wires/feeds you set; every
 //                                     claim carries its source (traceability, NOT

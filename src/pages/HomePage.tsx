@@ -3,7 +3,6 @@ import ProblemSection from '../components/ProblemSection'
 import WorkflowsSection from '../components/WorkflowsSection'
 import DifferentSection from '../components/DifferentSection'
 import StatsSection from '../components/StatsSection'
-import FromTheDeskSection from '../components/FromTheDeskSection'
 import ConnectSection from '../components/ConnectSection'
 import FAQSection from '../components/FAQSection'
 import FinalCTASection from '../components/FinalCTASection'
@@ -18,7 +17,6 @@ export default function HomePage() {
       <WorkflowsSection />
       <DifferentSection />
       <StatsSection />
-      <FromTheDeskSection />
       <ConnectSection />
       <FAQSection />
       <FinalCTASection />

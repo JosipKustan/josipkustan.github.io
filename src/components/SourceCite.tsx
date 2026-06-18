@@ -4,15 +4,18 @@ import { useIsMobile } from '../hooks/useMediaQuery'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Inline source citation. Wraps a phrase of running text and attributes it to a
-// source. On desktop, hovering (or focusing) the underlined phrase reveals a
+// source. On desktop, hovering (or focusing) the highlighted phrase reveals a
 // small SOURCE card — an orange "Source" tag + the attribution as a link out —
 // reusing the popover look of FactCheckCard so the page keeps one sourcing
-// visual. On mobile there's no hover, so the phrase renders as plain text and
-// the host section lists the sources as a caption beneath the paragraph
-// instead (see DifferentSection). Traceability, not fact-checking: this points
-// to where a figure came from, it does not verify it.
+// visual. The phrase itself carries the same brand-blue highlight as the claim
+// runs in that card (a resting tint that intensifies while the card is open),
+// not an underline. On mobile there's no hover, so the phrase renders as plain
+// text and the host section lists the sources as a caption beneath the
+// paragraph instead (see DifferentSection). Traceability, not fact-checking:
+// this points to where a figure came from, it does not verify it.
 //
-// Framer note: in Framer this is a Link with an underline + a hover-revealed
+// Framer note: in Framer this is a Link with a brand-blue highlight fill
+// (rgba(75,101,255,0.28) at rest → 0.92 + white text on hover) + a hover-revealed
 // overlay card (orange tag, italic Source Serif attribution linking out). On the
 // mobile breakpoint, drop the hover card and show a "Sources: …" caption line
 // under the paragraph instead.
@@ -46,7 +49,12 @@ export default function SourceCite({ cite, href, children }: Props) {
 
   return (
     <span style={s.wrap} onMouseEnter={show} onMouseLeave={hide}>
-      <span style={s.trigger} tabIndex={0} onFocus={show} onBlur={hide}>
+      <span
+        style={{ ...s.trigger, ...(open ? s.triggerActive : null) }}
+        tabIndex={0}
+        onFocus={show}
+        onBlur={hide}
+      >
         {children}
       </span>
       <AnimatePresence>
@@ -74,16 +82,23 @@ const s: Record<string, CSSProperties> = {
   wrap: {
     position: 'relative',
   },
+  // No underline — a soft brand-blue highlight, mirroring the claim runs in the
+  // "Trace every claim back to its source" card (FactCheckCard): a resting tint
+  // that intensifies to full strength while the source card is open.
   trigger: {
     cursor: 'help',
-    textDecorationLine: 'underline',
-    textDecorationColor: 'var(--brand-blue)',
-    textDecorationThickness: '2px',
-    textUnderlineOffset: '3px',
-    // keep the underline clean if the phrase wraps across lines
+    background: 'rgba(75,101,255,0.28)',
+    borderRadius: '4px',
+    padding: '1px 4px',
+    transition: 'background 0.2s ease, color 0.2s ease',
+    // keep the highlight box clean if the phrase wraps across lines
     WebkitBoxDecorationBreak: 'clone',
     boxDecorationBreak: 'clone',
   } as CSSProperties,
+  triggerActive: {
+    background: 'rgba(75,101,255,0.92)',
+    color: '#ffffff',
+  },
   // The card sits just above the phrase, anchored to its start.
   card: {
     position: 'absolute',

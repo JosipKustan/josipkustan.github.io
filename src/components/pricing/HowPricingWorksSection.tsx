@@ -5,14 +5,15 @@ import { useIsMobile } from '../../hooks/useMediaQuery'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Pricing page — block 3. "How pricing works." Replaces the missing price table
-// with a visible three-step process so "custom" reads as clear, not opaque. Light
-// cream surface, a left→right three-node schematic (number + H3 + one line),
+// with a visible three-step process so "custom" reads as clear, not opaque. Bold
+// primary-blue surface, a left→right three-node schematic (number + H3 + one line),
 // connected by arrows on desktop and stacked on mobile. No prices.
 //
-// Framer note: cream Frame (paper grain), --section padding. Centered Mozilla H2.
-// Below it three numbered step cards in a row (cream fill, border, number badge in
-// brand blue, Mozilla title, Inter line), with a Lucide arrow between each on
-// Desktop; add a Phone breakpoint (≤720px) that stacks them and drops the arrows.
+// Framer note: primary-blue Frame (--primary fill, paper grain), --section padding.
+// Centered Mozilla H2 in cream (--primary-foreground). Below it three numbered step
+// cards in a row (cream fill --card, number badge in brand blue, Mozilla title, Inter
+// line), with a cream-tinted Lucide arrow between each on Desktop; add a Phone
+// breakpoint (≤720px) that stacks them and drops the arrows.
 // Scroll-in: stagger the steps (fade + y). Honour reduced-motion.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -77,7 +78,7 @@ export default function HowPricingWorksSection() {
 
 const s: Record<string, CSSProperties> = {
   section: {
-    background: 'var(--background)',
+    background: 'var(--primary)',
     padding: 'var(--section-py) var(--section-px)',
   },
   inner: {
@@ -93,7 +94,7 @@ const s: Record<string, CSSProperties> = {
     fontWeight: 700,
     fontSize: 'clamp(28px, 4vw, 46px)',
     letterSpacing: '-0.02em',
-    color: 'var(--foreground)',
+    color: 'var(--primary-foreground)',
     margin: 0,
     textAlign: 'center',
   },
@@ -111,10 +112,10 @@ const s: Record<string, CSSProperties> = {
     alignItems: 'flex-start',
     gap: '12px',
     background: 'var(--card)',
-    border: '1px solid rgba(20, 24, 42, 0.1)',
+    border: '1px solid rgba(249, 247, 244, 0.14)',
     borderRadius: 'var(--radius-lg)',
     padding: 'clamp(24px, 2.8vw, 32px)',
-    boxShadow: 'var(--shadow-sm)',
+    boxShadow: 'var(--shadow-md)',
   },
   num: {
     fontFamily: 'var(--font-mono)',
@@ -145,7 +146,7 @@ const s: Record<string, CSSProperties> = {
   arrow: {
     display: 'inline-flex',
     alignItems: 'center',
-    color: 'rgba(20, 24, 42, 0.3)',
+    color: 'rgba(249, 247, 244, 0.55)',
     flexShrink: 0,
   },
 }
