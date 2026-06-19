@@ -1,5 +1,6 @@
 import { useRef, type CSSProperties } from 'react'
 import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { BOOKING_URL, BOOKING_LINK_PROPS } from '../bookingLink'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Block 10 — Final CTA. Same energy as the pain section: BOLD, QUICK, RESOLUTE.
@@ -47,7 +48,8 @@ export default function FinalCTASection({
 
         <motion.div style={s.ctaRow} {...rise(0.2)}>
           <motion.a
-            href="#demo"
+            href={BOOKING_URL}
+            {...BOOKING_LINK_PROPS}
             style={s.primary}
             whileHover={reduce ? undefined : { backgroundColor: 'oklch(0.82 0.18 58.3)', scale: 1.03 }}
             whileTap={reduce ? undefined : { scale: 0.97 }}

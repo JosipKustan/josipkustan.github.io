@@ -1,6 +1,7 @@
 import { type CSSProperties, type ReactNode } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { Eye, PenLine, Languages, Mic, SearchCheck, Plus, Check } from 'lucide-react'
+import { BOOKING_URL, BOOKING_LINK_PROPS } from '../../bookingLink'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Pricing page — block 2 hero + "Build your package" panel (Stripe's hero-left,
@@ -76,7 +77,8 @@ export default function PricingHero() {
           </motion.p>
           <motion.div style={s.ctaRow} {...copyItem(0.34)}>
             <motion.a
-              href="#demo"
+              href={BOOKING_URL}
+              {...BOOKING_LINK_PROPS}
               style={s.primary}
               whileHover={reduce ? undefined : { backgroundColor: 'oklch(0.82 0.18 58.3)', scale: 1.03 }}
               whileTap={reduce ? undefined : { scale: 0.97 }}

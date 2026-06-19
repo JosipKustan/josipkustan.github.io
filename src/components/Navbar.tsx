@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { useIsMobile } from '../hooks/useMediaQuery'
+import signinMark from '../assets/Logo_Outline_Cream.svg'
+import { BOOKING_URL, BOOKING_LINK_PROPS } from '../bookingLink'
 
 // v1 ships a deliberately small nav: Home + Pricing as routes, with Sign in and
 // Book a demo on the right. Platform / Workflows / Resources / About are parked
@@ -74,12 +76,14 @@ export default function Navbar() {
           transition={{ duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
         />
 
-        <a href="#/" style={styles.logo}>
-          <img src="/assets/wordmark-dark.svg" alt="NewsLabs" style={styles.wordmark} />
-        </a>
+        {/* Logo + links share a left group so the nav sits next to the wordmark
+            instead of floating in the center. */}
+        <div style={styles.leftGroup}>
+          <a href="#/" style={styles.logo}>
+            <img src="/assets/wordmark-dark.svg" alt="NewsLabs" style={styles.wordmark} />
+          </a>
 
-        {!isMobile && (
-          <>
+          {!isMobile && (
             <nav style={styles.nav}>
               {links.map((link, i) => {
                 const active = route === link.match
@@ -107,20 +111,26 @@ export default function Navbar() {
                 )
               })}
             </nav>
+          )}
+        </div>
 
+        {!isMobile && (
             <div style={styles.rightCluster}>
               <motion.a
-                href="#signin"
+                href="https://app.newslabs.io/login"
                 style={styles.signin}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
-                whileHover={{ color: '#ffffff' }}
+                whileHover={{ backgroundColor: 'oklch(0.27 0.04 273)' }}
+                whileTap={{ scale: 0.97 }}
               >
-                Sign in
+                <img src={signinMark} alt="" aria-hidden style={styles.signinMark} />
+                Login
               </motion.a>
               <motion.a
-                href="#demo"
+                href={BOOKING_URL}
+                {...BOOKING_LINK_PROPS}
                 style={styles.cta}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -131,7 +141,6 @@ export default function Navbar() {
                 Book a demo
               </motion.a>
             </div>
-          </>
         )}
 
         {isMobile && (
@@ -202,7 +211,7 @@ export default function Navbar() {
               </nav>
 
               <motion.a
-                href="#signin"
+                href="https://app.newslabs.io/login"
                 style={styles.drawerSignin}
                 onClick={() => setOpen(false)}
                 initial={{ opacity: 0, y: 12 }}
@@ -210,10 +219,12 @@ export default function Navbar() {
                 transition={{ delay: links.length * 0.05 + 0.08, duration: 0.3 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Sign in
+                <img src={signinMark} alt="" aria-hidden style={styles.signinMark} />
+                Login
               </motion.a>
               <motion.a
-                href="#demo"
+                href={BOOKING_URL}
+                {...BOOKING_LINK_PROPS}
                 style={styles.drawerCta}
                 onClick={() => setOpen(false)}
                 initial={{ opacity: 0, y: 12 }}
@@ -261,6 +272,14 @@ const styles: Record<string, React.CSSProperties> = {
     backdropFilter: 'blur(12px)',
     WebkitBackdropFilter: 'blur(12px)',
     borderBottom: '1px solid rgba(255,255,255,0.08)',
+  },
+  leftGroup: {
+    position: 'relative',
+    zIndex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'clamp(28px, 4vw, 48px)',
+    flexShrink: 0,
   },
   logo: {
     position: 'relative',
@@ -312,14 +331,26 @@ const styles: Record<string, React.CSSProperties> = {
     flexShrink: 0,
   },
   signin: {
-    fontSize: '14px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '8px 16px',
+    background: 'var(--ink)',
+    color: 'var(--cream)',
+    border: 'none',
+    borderRadius: 'var(--radius-md)',
+    fontSize: '13.5px',
     fontFamily: 'var(--font-sans)',
-    fontWeight: 500,
-    color: 'rgba(249, 247, 244, 0.82)',
+    fontWeight: 600,
     cursor: 'pointer',
-    transition: 'color 0.15s ease',
+    transition: 'background 0.15s ease',
     letterSpacing: '0.01em',
     whiteSpace: 'nowrap',
+  },
+  signinMark: {
+    height: '18px',
+    width: '18px',
+    display: 'block',
   },
   cta: {
     display: 'inline-flex',
@@ -411,11 +442,12 @@ const styles: Record<string, React.CSSProperties> = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 8,
     marginTop: 28,
     padding: '13px 24px',
-    background: 'transparent',
+    background: 'oklch(0.27 0.04 273)',
     color: 'var(--cream)',
-    border: '1px solid var(--dark-border)',
+    border: 'none',
     borderRadius: 'var(--radius-md)',
     fontSize: 15,
     fontWeight: 600,

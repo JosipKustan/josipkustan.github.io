@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import newsroomImg from '../assets/NewsRoom_Old.png'
+import { BOOKING_URL, BOOKING_LINK_PROPS } from '../bookingLink'
 
 // Tiny 24px-wide blurred JPEG of the newsroom photo, inlined as a data URI so it
 // paints instantly (it ships in the JS bundle, no network request). It's shown
@@ -100,7 +101,8 @@ export default function Hero() {
           transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.5 }}
         >
           <motion.a
-            href="#demo"
+            href={BOOKING_URL}
+            {...BOOKING_LINK_PROPS}
             style={styles.cta}
             whileHover={{ backgroundColor: 'oklch(0.82 0.18 58.3)', scale: 1.03 }}
             whileTap={{ scale: 0.97 }}

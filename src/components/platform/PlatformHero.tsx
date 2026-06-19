@@ -1,5 +1,6 @@
 import { type CSSProperties } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
+import { BOOKING_URL, BOOKING_LINK_PROPS } from '../../bookingLink'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Platform page — block 2 hero. Defines the product in one line: one engine,
@@ -82,7 +83,8 @@ export default function PlatformHero() {
             transition={{ duration: 0.55, delay: 0.34, ease: EASE }}
           >
             <motion.a
-              href="#demo"
+              href={BOOKING_URL}
+              {...BOOKING_LINK_PROPS}
               style={s.primary}
               whileHover={reduce ? undefined : { backgroundColor: 'oklch(0.82 0.18 58.3)', scale: 1.03 }}
               whileTap={reduce ? undefined : { scale: 0.97 }}
