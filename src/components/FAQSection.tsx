@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion'
-import { Tombstone, Stamp } from './vintage/VintageKit'
+import { Tombstone } from './vintage/VintageKit'
 
 // FAQ reimagined as a printed Q&A / interview column ("On the record").
 // Each entry is a newspaper item: a section number in the gutter, the question
@@ -222,7 +222,6 @@ export default function FAQSection({ faqs = FAQS }: { faqs?: Faq[] } = {}) {
           <p style={styles.signoff}>
             Off the record, we&rsquo;d tell you the same thing.
           </p>
-          <Stamp tone="light" rotate={-5}>Off the record</Stamp>
         </motion.div>
       </div>
     </section>

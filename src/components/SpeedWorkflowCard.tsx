@@ -28,7 +28,6 @@ import { Rss, Building2, FileText, UserCheck, Send, Globe } from 'lucide-react'
 
 import WorkflowCardFrame from './WorkflowCardFrame'
 import { useIsTightDesktop } from '../hooks/useMediaQuery'
-import { Stamp } from './vintage/VintageKit'
 import phoneImg from '../assets/BlueTelephone.png'
 
 const STEPS = [
@@ -266,9 +265,6 @@ export default function SpeedWorkflowCard() {
             <div style={s.publishedHead}>
               <span style={s.liveDot} />
               <span style={s.publishedTitle}>Published</span>
-              <span style={s.publishedStamp}>
-                <Stamp tone="dark">Filed</Stamp>
-              </span>
             </div>
 
             <div style={s.list}>
@@ -506,9 +502,6 @@ const s: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     gap: '8px',
     marginBottom: '12px',
-  },
-  publishedStamp: {
-    marginLeft: 'auto',
   },
   liveDot: {
     width: '8px',

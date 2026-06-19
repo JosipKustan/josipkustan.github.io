@@ -309,47 +309,6 @@ export function BottomPaperTearEdge({
   )
 }
 
-// A rubber-stamp label: rotated mono caps in a 2px border. Reads as an editorial
-// stamp ("FILED", "SOURCED ✓") without any image asset.
-export function Stamp({
-  children,
-  tone = 'dark',
-  color,
-  rotate = -7,
-  style,
-}: {
-  children: ReactNode
-  tone?: Tone
-  color?: string
-  rotate?: number
-  style?: CSSProperties
-}) {
-  const c = color ?? (tone === 'dark' ? 'var(--brand-orange)' : 'var(--accent)')
-  return (
-    <span
-      aria-hidden
-      style={{
-        display: 'inline-block',
-        transform: `rotate(${rotate}deg)`,
-        border: `2px solid ${c}`,
-        color: c,
-        borderRadius: 6,
-        padding: '4px 9px',
-        fontFamily: 'var(--font-mono)',
-        fontSize: 11,
-        fontWeight: 700,
-        letterSpacing: '0.16em',
-        textTransform: 'uppercase',
-        opacity: 0.88,
-        whiteSpace: 'nowrap',
-        ...style,
-      }}
-    >
-      {children}
-    </span>
-  )
-}
-
 export function CropMarks({ tone = 'dark' }: { tone?: Tone }) {
   const color = tone === 'dark' ? 'rgba(249,247,244,0.30)' : 'rgba(20,24,42,0.22)'
   // Four corner L-marks. Parent must be position:relative.

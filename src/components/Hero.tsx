@@ -68,14 +68,6 @@ export default function Hero() {
           >
             Book a demo
           </motion.a>
-          <motion.a
-            href="#workflows"
-            style={styles.ctaSecondary}
-            whileHover={{ x: 3 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            See what we put on the table in your newsroom →
-          </motion.a>
         </motion.div>
       </div>
     </section>

@@ -56,8 +56,11 @@ export default function WorkflowsSection() {
           <SpeedWorkflowCard />
         </motion.div>
 
-        {/* Remaining workflow cards */}
-        <div style={styles.grid}>
+        {/* Remaining workflow cards.
+            On mobile the grid is a single column, so match the 40px column
+            rhythm used between the full-width cards above; 2-up desktop keeps
+            the tighter 16px gutter. */}
+        <div style={{ ...styles.grid, gap: isMobile ? '40px' : '16px' }}>
           {/* Lead card — interactive "rewrite in your voice" delight.
               Sits above its grid siblings (z-index) so the megaphone, which
               hangs past the card's edges, isn't painted over by the next card. */}
@@ -81,23 +84,6 @@ export default function WorkflowsSection() {
             <TranscriptionCard />
           </motion.div>
         </div>
-
-        {/* Section CTA — through to the full Workflows page */}
-        <motion.div
-          style={styles.ctaWrap}
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <motion.a
-            href="#/workflows"
-            style={styles.sectionCta}
-            whileHover={{ x: 3 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            See all workflows →
-          </motion.a>
-        </motion.div>
       </div>
     </section>
   )

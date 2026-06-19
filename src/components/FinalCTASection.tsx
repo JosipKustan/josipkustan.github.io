@@ -54,14 +54,6 @@ export default function FinalCTASection({
           >
             Book a demo
           </motion.a>
-          <motion.a
-            href="#contact"
-            style={s.ghost}
-            className="fcta-ghost"
-            whileTap={reduce ? undefined : { scale: 0.98 }}
-          >
-            Talk to our team
-          </motion.a>
         </motion.div>
       </div>
       <style>{CSS}</style>

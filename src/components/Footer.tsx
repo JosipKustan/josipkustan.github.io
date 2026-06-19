@@ -5,44 +5,25 @@ import { motion, useReducedMotion } from 'framer-motion'
 // tiles were removed to avoid a duplicate "Book a demo" right above the footer.
 //
 // Shows only live v1 destinations (spec rule: trim any column/link whose page does
-// not exist yet). Brand block (wordmark + tagline) on the left, a five-column link
-// grid on the right, a hairline, then a legal bottom bar. Adria Analytics appears
-// only here, in the legal line. A whisper-quiet BrandRainbow watermark sits bottom-right.
+// not exist yet). v1 ships just three real routes — Home, Pricing, and Log in (to
+// NewsLabs) — plus the LinkedIn follow. Brand block (wordmark + tagline) on the
+// left, two link columns on the right, a hairline, then a legal bottom bar. Adria
+// Analytics appears only here, in the legal line. A whisper-quiet BrandRainbow
+// watermark sits bottom-right.
 //
 // Framer note: ink Frame. Top row = brand Stack (wordmark image + Inter tagline) +
-// a 5-column auto-grid of link columns (Product / Resources / Company / Legal /
-// Follow). Pin the BrandRainbow.svg bottom-right at ~10% opacity, clipped. Bottom
+// a 2-column auto-grid of link columns (NewsLabs: Home / Pricing / Log in — Follow:
+// LinkedIn). Pin the BrandRainbow.svg bottom-right at ~10% opacity, clipped. Bottom
 // bar = a top hairline with the © line. Scroll-in: fade + y on the grid; honour
-// reduced-motion.
+// reduced-motion. Log in points at #signin (same destination as the navbar "Sign in").
 
 const COLUMNS: { title: string; links: [string, string][] }[] = [
   {
-    title: 'Product',
+    title: 'NewsLabs',
     links: [
-      ['Platform', '#/platform'],
-      ['Workflows', '#workflows'],
+      ['Home', '#/'],
       ['Pricing', '#/pricing'],
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      ['Blog', '#blog'],
-      ['Guides', '#guides'],
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      ['About', '#about'],
-      ['Contact', '#contact'],
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      ['Privacy', '#privacy'],
-      ['Terms', '#terms'],
+      ['Log in', '#signin'],
     ],
   },
   {
@@ -75,7 +56,7 @@ export default function Footer() {
           {/* Brand block */}
           <div style={styles.brand}>
             <img src="/assets/wordmark-dark.svg" alt="NewsLabs" style={styles.logo} />
-            <p style={styles.tagline}>A publication that ships code.</p>
+            <p style={styles.tagline}>Your newsroom's production desk.</p>
           </div>
 
           {/* Link grid */}

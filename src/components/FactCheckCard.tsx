@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useLayoutEffect, useCallback } from 'react
 import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion'
 import WorkflowCardFrame from './WorkflowCardFrame'
 import { useIsTightDesktop } from '../hooks/useMediaQuery'
-import { Stamp } from './vintage/VintageKit'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // "Trace every claim back to its source." — the interactive proof.
@@ -203,9 +202,6 @@ export default function FactCheckCard() {
                   </span>
                 ))}
               </div>
-              <div style={s.stampWrap}>
-                <Stamp tone="dark">Sourced ✓</Stamp>
-              </div>
             </>
           )}
         </div>
@@ -370,9 +366,6 @@ const s: Record<string, React.CSSProperties> = {
     height: '10px',
     borderRadius: '3px',
     flexShrink: 0,
-  },
-  stampWrap: {
-    marginTop: '28px',
   },
   draftCard: {
     position: 'relative',

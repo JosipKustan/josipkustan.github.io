@@ -28,6 +28,12 @@ export default function ProblemSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const reduce = useReducedMotion() ?? false
 
+  const scrollToNext = () => {
+    document
+      .getElementById('workflows')
+      ?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
+  }
+
   const container: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: 0.09, delayChildren: 0.12 } },
@@ -65,7 +71,21 @@ export default function ProblemSection() {
           </motion.p>
 
           <motion.p style={styles.close} variants={reduce ? undefined : item}>
-            That ends <span style={styles.closeAccent}>here.</span>
+            That ends{' '}
+            <span
+              style={styles.closeAccent}
+              role="button"
+              tabIndex={0}
+              onClick={scrollToNext}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  scrollToNext()
+                }
+              }}
+            >
+              here.
+            </span>
           </motion.p>
         </motion.div>
       </div>
@@ -125,7 +145,9 @@ const styles: Record<string, React.CSSProperties> = {
     maxWidth: '26ch',
   },
   consequenceMuted: {
-    color: 'oklch(0.55 0.02 85)',
+    // Bumped from 0.55 → 0.74 L so it clears WCAG AAA (7:1) on the ink section
+    // background (#14182A). Was 3.62:1 (AA-large only); now 7.63:1.
+    color: 'oklch(0.74 0.02 85)',
   },
   close: {
     fontFamily: 'var(--font-display)',
@@ -141,5 +163,6 @@ const styles: Record<string, React.CSSProperties> = {
     color: 'var(--cream)',
     borderBottom: '4px solid var(--brand-orange)',
     paddingBottom: '2px',
+    cursor: 'pointer',
   },
 }

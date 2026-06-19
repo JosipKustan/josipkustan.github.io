@@ -82,6 +82,14 @@ function SearchIcon() {
   )
 }
 
+function BackArrowIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0 }}>
+      <path d="M15 18l-6-6 6-6" stroke="#5f6368" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 function MicIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden style={{ flexShrink: 0 }}>
@@ -96,23 +104,40 @@ function MicIcon() {
 // Recreated Google homepage for the "Google Discover reach" panel. The "Google"
 // wordmark is the count-up number "+53%" rendered in the Google brand colors
 // (per-character cycle) and the search box reads "Google discover reach". The
-// two homepage buttons fire the search: clicking either morphs the homepage
-// into a results page — the logo shrinks into a header row beside the search
-// bar and two NewsLabs results stagger in (#1 why SEO matters, #2 how we
-// tackle it). Clicking the shrunken logo returns home, just like Google.
+// two homepage buttons fire DIFFERENT searches: "SEO optimized search" returns
+// general SEO knowledge (SEO_RESULTS), "See how we do it" returns how we apply
+// it inside the product (HOW_RESULTS). Either morphs the homepage into a results
+// page — the logo shrinks into a header row beside the search bar and up to two
+// results stagger in. A back arrow beside the shrunken logo returns home.
 const GOOGLE_COLORS = ['#4285F4', '#EA4335', '#FBBC05', '#4285F4', '#34A853', '#EA4335']
-const SERP_RESULTS = [
+// "SEO optimized search" → the general, educational side of news SEO.
+const SEO_RESULTS = [
   {
     site: 'NewsLabs',
-    url: 'newslabs.com › learn › why-seo-matters',
-    title: "Why SEO matters: readers don't find newsrooms, they find stories",
-    desc: 'Most news traffic now starts with a search or a Discover feed, and Google decides which version of a story gets the click. The slot above you takes the readers, the ad revenue and the subscriber. Search visibility isn’t marketing. It’s distribution.',
+    url: 'newslabs.com › learn › why-search-matters',
+    title: 'What SEO really decides in news: who gets the reader',
+    desc: 'Most news traffic now starts with a search or a Discover feed, and Google chooses which version of a story gets the click. The slot above you takes the readers, the ad revenue and the subscriber. Search visibility isn’t marketing. It’s distribution.',
   },
   {
     site: 'NewsLabs',
-    url: 'newslabs.com › product › search',
+    url: 'newslabs.com › learn › wording-and-ai-overviews',
+    title: 'The two forces in news SEO: the right words and the AI overview',
+    desc: 'Rankings hinge on matching the language readers actually search, and on not being absorbed into Google’s AI summaries that answer the question and keep the click. Get the wording right and stay quotable but un-summarizable, and Google sends the reader to the article.',
+  },
+]
+// "See how we do it" → how those ideas are applied inside the product.
+const HOW_RESULTS = [
+  {
+    site: 'NewsLabs',
+    url: 'newslabs.com › product › search-ready',
     title: 'How NewsLabs tackles it: every draft ships search-ready',
     desc: 'NewsLabs builds SEO into the writing itself: headlines tuned to real queries, metadata and structured data generated with the draft, and Discover-friendly formatting checked before you publish. No checklist, no plugin, no extra pass.',
+  },
+  {
+    site: 'NewsLabs',
+    url: 'newslabs.com › product › in-the-editor',
+    title: 'Built in, not bolted on: SEO that works as you write',
+    desc: 'As the draft comes together the product phrases around the queries readers run and flags anything likely to trip an AI overview, so the story is optimized and protected before it ever leaves the desk, not patched up after publishing.',
   },
 ]
 // Same spring as the workflow cards' shared-element morphs.
@@ -120,12 +145,29 @@ const googleSpring = { type: 'spring', stiffness: 320, damping: 34 } as const
 function GoogleHome({ stat, inView, reduce }: { stat: Stat; inView: boolean; reduce: boolean }) {
   const value = useCountUp(stat.value, inView, reduce, 1150, 220)
   const text = `${stat.prefix ?? ''}${value}${stat.suffix ?? ''}`
-  const [searched, setSearched] = useState(false)
+  const [mode, setMode] = useState<'seo' | 'how' | null>(null)
+  const searched = mode !== null
+  const results = mode === 'how' ? HOW_RESULTS : SEO_RESULTS
   const layoutSpring = reduce ? { duration: 0 } : googleSpring
-  const goHome = () => setSearched(false)
+  const goHome = () => setMode(null)
   return (
     <>
       <motion.div layout transition={layoutSpring} style={searched ? styles.googleHeadRow : styles.googleHeadHome}>
+        {searched && (
+          <motion.button
+            type="button"
+            layout
+            style={styles.googleBack}
+            onClick={goHome}
+            aria-label="Back to search"
+            title="Back to search"
+            initial={reduce ? false : { opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.3, delay: 0.1 }}
+          >
+            <BackArrowIcon />
+          </motion.button>
+        )}
         <motion.div
           layout
           transition={layoutSpring}
@@ -150,7 +192,17 @@ function GoogleHome({ stat, inView, reduce }: { stat: Stat; inView: boolean; red
           style={{ ...styles.googleBar, ...(searched ? styles.googleBarRow : undefined) }}
         >
           <SearchIcon />
-          <span style={styles.googleQuery}>Google discover reach</span>
+          <span style={styles.googleQuery}>
+            Google discover reach
+            {!searched && (
+              <motion.span
+                style={styles.googleCaret}
+                aria-hidden
+                animate={reduce ? undefined : { opacity: [1, 1, 0, 0] }}
+                transition={{ duration: 1.06, repeat: Infinity, times: [0, 0.49, 0.5, 1], ease: 'linear' }}
+              />
+            )}
+          </span>
           <MicIcon />
         </motion.div>
       </motion.div>
@@ -165,22 +217,22 @@ function GoogleHome({ stat, inView, reduce }: { stat: Stat; inView: boolean; red
             exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.15 } }}
             transition={{ duration: 0.3 }}
           >
-            <button type="button" style={styles.googleBtn} onClick={() => setSearched(true)}>
+            <button type="button" style={styles.googleBtn} onClick={() => setMode('seo')}>
               SEO optimized search
             </button>
-            <button type="button" style={styles.googleCta} onClick={() => setSearched(true)}>
+            <button type="button" style={styles.googleCta} onClick={() => setMode('how')}>
               See how we do it
             </button>
           </motion.div>
         ) : (
           <motion.div
-            key="serp"
+            key={`serp-${mode}`}
             style={styles.googleResults}
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.15 } }}
           >
-            {SERP_RESULTS.map((r, i) => (
+            {results.map((r, i) => (
               <motion.div
                 key={r.url}
                 style={styles.serpResult}
@@ -864,8 +916,19 @@ const styles: Record<string, React.CSSProperties> = {
     flex: 1,
     fontFamily: 'var(--font-sans)',
     fontSize: '15px',
-    color: '#3c4043',
+    fontWeight: 500,
+    color: '#202124',
     textAlign: 'left',
+  },
+  // Typing caret blinking at the end of the query on the home screen.
+  googleCaret: {
+    display: 'inline-block',
+    width: '1.5px',
+    height: '1.05em',
+    marginLeft: '2px',
+    background: '#202124',
+    verticalAlign: '-0.18em',
+    borderRadius: '1px',
   },
   googleBtns: {
     display: 'flex',
@@ -919,6 +982,19 @@ const styles: Record<string, React.CSSProperties> = {
   },
   googleLogoSmall: {
     fontSize: 'clamp(24px, 3.4vw, 34px)',
+    cursor: 'pointer',
+  },
+  googleBack: {
+    flexShrink: 0,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '34px',
+    height: '34px',
+    borderRadius: '50%',
+    background: 'transparent',
+    border: 'none',
+    padding: 0,
     cursor: 'pointer',
   },
   googleBarRow: {

@@ -33,7 +33,7 @@
   --background:             oklch(0.961 0.004 91.4);   /* #F3F2EF warm canvas */
   --card:                   oklch(0.977 0.005 78.3);   /* #F9F7F4 */
   --foreground:             oklch(0.215 0.036 273.5);  /* ink */
-  --muted-foreground:       oklch(0.45 0.02 270);
+  --muted-foreground:       oklch(0.43 0.02 270);  /* AAA on light bgs: 7.25:1 paper / 8.12:1 white (was 0.45 → 6.65:1, AA only) */
   --primary:                oklch(0.483 0.203 262.3);  /* #1451CE */
   --primary-foreground:     oklch(0.977 0.005 78.3);
   --accent:                 oklch(0.55 0.158 50);      /* #C05B00 burnt orange */
@@ -46,7 +46,7 @@
   --dark-card:              oklch(0.238 0.028 271.9);
   --dark-card-hover:        oklch(0.258 0.028 271.9);
   --dark-foreground:        oklch(0.9 0.007 85);
-  --dark-muted:             oklch(0.68 0.02 85);
+  --dark-muted:             oklch(0.74 0.02 85);  /* AAA on --ink: 7.63:1 (was 0.68 → 6.10:1, AA only) */
   --dark-border:            oklch(0.3 0.025 272);
   --dark-primary:           oklch(0.581 0.229 270.2);  /* #4B65FF */
 

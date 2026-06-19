@@ -235,6 +235,13 @@ export default function TranscriptionCard() {
         <span style={styles.clock}>
           {clock(time)} <span style={styles.clockTotal}>/ {clock(TOTAL)}</span>
         </span>
+
+        {/* Volume — V1 ships muted-only: the transport is silent (rAF, no real
+            audio yet), so this is a static muted-state glyph, not a toggle. When
+            real audio lands, make this a button that flips muted ⇄ unmuted. */}
+        <span style={styles.volume} aria-label="Audio muted" role="img">
+          <MutedVolumeIcon />
+        </span>
       </div>
 
       {/* Live indicator — only while the head is moving */}
@@ -353,6 +360,15 @@ function ReplayIcon() {
     <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12.5 7.5a5 5 0 1 1-1.6-3.7" />
       <path d="M12.6 2v2.6H10" />
+    </svg>
+  )
+}
+// Muted speaker — V1 always-muted state (the "×" wave instead of sound arcs).
+function MutedVolumeIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2.5 5.5h2L8 2.75v10.5L4.5 10.5h-2z" fill="currentColor" stroke="none" />
+      <path d="M11 6l3 4M14 6l-3 4" />
     </svg>
   )
 }
@@ -492,6 +508,15 @@ const styles: Record<string, React.CSSProperties> = {
     fontVariantNumeric: 'tabular-nums',
   },
   clockTotal: {
+    color: 'oklch(0.55 0.015 85)',
+  },
+  volume: {
+    flexShrink: 0,
+    display: 'grid',
+    placeItems: 'center',
+    width: '20px',
+    height: '20px',
+    // Dimmed to read as the inactive/muted state.
     color: 'oklch(0.55 0.015 85)',
   },
   liveRow: {
