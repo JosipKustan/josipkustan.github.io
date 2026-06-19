@@ -1,14 +1,53 @@
+import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import newsroomImg from '../assets/NewsRoom_Old.png'
 
+// Tiny 24px-wide blurred JPEG of the newsroom photo, inlined as a data URI so it
+// paints instantly (it ships in the JS bundle, no network request). It's shown
+// blurred and scaled up while the full 4.5MB PNG streams in, then the real photo
+// fades over it — no more line-by-line reveal.
+const NEWSROOM_LQIP =
+  'data:image/jpeg;base64,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'
+
 export default function Hero() {
   const prefersReduced = useReducedMotion()
+  const imgRef = useRef<HTMLImageElement>(null)
+  const [loaded, setLoaded] = useState(false)
+
+  // If the full image is already cached, onLoad may not fire after mount.
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true)
+  }, [])
 
   return (
     <section style={styles.section} id="hero">
       {/* Background photo */}
       <div style={styles.bg}>
-        <img src={newsroomImg} alt="" style={styles.bgImg} />
+        {/* Blurred low-res placeholder — instant paint, fades out as the real photo arrives */}
+        <div
+          aria-hidden
+          style={{
+            ...styles.bgImg,
+            backgroundImage: `url(${NEWSROOM_LQIP})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'right 100px center',
+            filter: 'saturate(0.8) sepia(0.14) contrast(1.02) blur(20px)',
+            transform: 'scale(1.06)',
+            opacity: loaded ? 0 : 1,
+            transition: 'opacity 0.7s ease',
+          }}
+        />
+        <img
+          ref={imgRef}
+          src={newsroomImg}
+          alt=""
+          onLoad={() => setLoaded(true)}
+          style={{
+            ...styles.bgImg,
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity 0.8s ease',
+          }}
+        />
         <div style={styles.overlay} />
       </div>
 
@@ -92,6 +131,8 @@ const styles: Record<string, React.CSSProperties> = {
     zIndex: 0,
   },
   bgImg: {
+    position: 'absolute',
+    inset: 0,
     width: '100%',
     height: '100%',
     objectFit: 'cover',

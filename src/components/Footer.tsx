@@ -147,6 +147,7 @@ const styles: Record<string, React.CSSProperties> = {
   logo: {
     height: '24px',
     width: 'auto',
+    alignSelf: 'flex-start',
   },
   tagline: {
     fontFamily: 'var(--font-sans)',
