@@ -182,7 +182,7 @@ export default function SpeedWorkflowCard() {
             <span style={s.tag}>03 · Feed → Published</span>
             <h2 style={s.heading}>Catch the story first.</h2>
             <p style={s.sub}>
-              Every newsroom gets the same feed at the same second. NewsLabs runs it to publish before anyone else.
+              Every newsroom gets the same feed at the same second. NewsLabs shows it to you instantly and turns it into your story with a click. All you do is review and publish first.
             </p>
           </div>
         </div>
@@ -382,7 +382,7 @@ const s: Record<string, React.CSSProperties> = {
     left: '-8px',
     bottom: '-14px',
     zIndex: 1,
-    width: 'min(50%, 660px)',
+    width: 'min(40%, 520px)',
     height: 'auto',
     pointerEvents: 'none',
     userSelect: 'none',

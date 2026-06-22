@@ -90,8 +90,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: [0.2, 0.8, 0.2, 1], delay: 0.35 }}
         >
-          NewsLabs drafts the routine production work: republishing, translation, wires, and
-          social monitoring. Editors decide what publishes.
+          NewsLabs drafts routine stories with a single click. Republish from wires, social
+          media accounts, and press releases. Translate, transcribe, source-check. Humans stay
+          in control.
         </motion.p>
 
         <motion.div

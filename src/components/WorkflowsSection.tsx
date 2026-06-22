@@ -25,7 +25,7 @@ export default function WorkflowsSection() {
         >
           <h2 style={styles.sectionTitle}>The work NewsLabs handles.</h2>
           <p style={styles.sectionSub}>
-            The model drafts the production. The editor keeps the call.
+            Our engine delivers a perfect draft. The editor keeps the call.
           </p>
         </motion.div>
 

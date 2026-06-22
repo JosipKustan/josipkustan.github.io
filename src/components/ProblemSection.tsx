@@ -62,7 +62,8 @@ export default function ProblemSection() {
           animate={inView ? 'show' : reduce ? undefined : 'hidden'}
         >
           <motion.p style={styles.line} variants={reduce ? undefined : item}>
-            Five stories to file, an hour lost to social, thirty minutes down the wires.
+            Eleven stories to file, hours lost to searching socials, endless tabs opened for
+            picking up background, racing with the competition to publish the same story first.
           </motion.p>
 
           <motion.p style={styles.consequence} variants={reduce ? undefined : item}>

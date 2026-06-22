@@ -63,12 +63,12 @@ const PILLARS: { icon: React.ReactNode; title: string; body: string }[] = [
   {
     icon: <ShieldCheck size={24} strokeWidth={1.5} />,
     title: 'A human signs off.',
-    body: "Nothing publishes on the AI's say-so. Drafts arrive inside the structure and tone you set, and an editor approves, edits, or rejects each one. The call, and the responsibility, stay with the desk.",
+    body: "Nothing is published on the AI's say-so. Drafts resemble your newsroom style and tone, including the entire copy structure, as well as headlines. An editor approves, edits, and gets further edits with NewsLabs. The call and the responsibility stay with the desk.",
   },
   {
     icon: <Users size={24} strokeWidth={1.5} />,
     title: 'Held to your standards.',
-    body: "Tuned to how your newsroom works, the languages it works in, and the standards it's judged by, built by former journalists. Not a blank prompt box that answers to no one.",
+    body: "Tuned to how your newsroom works, the languages it works in, and the standards it's judged by, built by former journalists. Not a blank prompt box that answers to no one. A full newsroom that outputs the highest quality pieces.",
   },
 ]
 
@@ -112,10 +112,10 @@ export default function DifferentSection() {
             <SourceCite cite={AP_SRC.cite} href={AP_SRC.href}>
               Associated Press study put newsroom use near 70%
             </SourceCite>
-            . So instead of pretending otherwise, NewsLabs gives them a version they can stand
-            behind. Drafts come only from the wires and feeds you choose, every claim carries its
-            source, and nothing leaves the desk until an editor signs off. The byline stays human,
-            and so does the judgement behind it.
+            . So instead of pretending otherwise, NewsLabs gives them a version they can control
+            and stand behind. Drafts come only from the wires, social feeds, and press releases
+            you choose. Every claim carries its source, and nothing leaves the desk until an
+            editor signs off. The byline stays human, and so does the judgment behind it.
           </p>
           {isMobile && (
             <p style={s.sourceLine}>

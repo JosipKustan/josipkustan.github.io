@@ -179,6 +179,10 @@ export default function TranscriptionCard() {
 
       <span style={styles.tag}>05 · Audio → Story</span>
       <h3 style={styles.cardTitle}>Transcribe the broadcast as it airs.</h3>
+      <p style={styles.cardSub}>
+        It works for existing audio and video, too. Turn your or any podcast into a news
+        story within minutes.
+      </p>
 
       {/* ── Audio player ─────────────────────────────────────────────── */}
       <div style={styles.player}>
@@ -433,6 +437,13 @@ const styles: Record<string, React.CSSProperties> = {
     lineHeight: 1.2,
     letterSpacing: '-0.015em',
     color: 'var(--cream)',
+  },
+  cardSub: {
+    fontFamily: 'var(--font-sans)',
+    fontSize: 'clamp(13.5px, 1.05vw, 15px)',
+    lineHeight: 1.5,
+    color: 'oklch(0.74 0.02 85)',
+    margin: 0,
   },
   player: {
     display: 'flex',

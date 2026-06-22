@@ -491,9 +491,10 @@ export default function ConnectSection() {
           <Eyebrow tone="dark">The newsroom hub</Eyebrow>
           <h2 style={s.heading}>Connects to everything you run.</h2>
           <p style={s.standfirst}>
-            Pull in every signal: socials, wires, broadcast, your own data. Run it through the models you
-            trust, and publish straight to the tools your newsroom already lives in. NewsLabs sits in the
-            middle, wiring it together.
+            Pull in every signal: socials, news wires, press releases, data, and information coming from
+            institutions, or your own data. Run it through the models you trust, and publish straight to
+            the tools your newsroom already lives in. NewsLabs sits in the middle, wiring it together,
+            making it quicker and giving you a competitive edge.
           </p>
         </motion.header>
 

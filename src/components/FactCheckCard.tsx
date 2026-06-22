@@ -182,7 +182,7 @@ export default function FactCheckCard() {
         <div style={s.rail}>
           {wide && <span style={s.tag}>02 · Claims → Sources</span>}
           <h2 style={{ ...s.heading, ...(wide ? s.headingWide : {}) }}>
-            Trace every claim<br />back to its source.
+            Control the sources.
           </h2>
           {wide && (
             <>
