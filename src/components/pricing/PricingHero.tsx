@@ -85,14 +85,7 @@ export default function PricingHero() {
             >
               Book a demo
             </motion.a>
-            <motion.a
-              href="#contact"
-              style={s.secondary}
-              className="prh-secondary"
-              whileHover={reduce ? undefined : { x: 3 }}
-            >
-              Talk to our team
-            </motion.a>
+            
           </motion.div>
         </div>
 
