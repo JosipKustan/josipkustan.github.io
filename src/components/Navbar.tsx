@@ -122,10 +122,9 @@ export default function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
-                whileHover={{ backgroundColor: 'oklch(0.27 0.04 273)' }}
+                whileHover={{ color: '#ffffff' }}
                 whileTap={{ scale: 0.97 }}
               >
-                <img src={signinMark} alt="" aria-hidden style={styles.signinMark} />
                 Login
               </motion.a>
               <motion.a
@@ -330,20 +329,22 @@ const styles: Record<string, React.CSSProperties> = {
     gap: '20px',
     flexShrink: 0,
   },
+  // Plain text link (no filled box) so the orange "Book a demo" CTA stays the only
+  // button in the right cluster and owns the conversion path. Matches the nav links'
+  // resting cream → white-on-hover treatment.
   signin: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '8px',
-    padding: '8px 16px',
-    background: 'var(--ink)',
-    color: 'var(--cream)',
+    gap: '7px',
+    padding: '8px 4px',
+    background: 'transparent',
+    color: 'rgba(249, 247, 244, 0.82)',
     border: 'none',
-    borderRadius: 'var(--radius-md)',
-    fontSize: '13.5px',
+    fontSize: '14px',
     fontFamily: 'var(--font-sans)',
-    fontWeight: 600,
+    fontWeight: 500,
     cursor: 'pointer',
-    transition: 'background 0.15s ease',
+    transition: 'color 0.15s ease',
     letterSpacing: '0.01em',
     whiteSpace: 'nowrap',
   },

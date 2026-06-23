@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
 import stackImg from '../assets/StackofPapers.png'
+import approvedStamp from '../assets/Approved.svg'
 import { useIsMobile } from '../hooks/useMediaQuery'
 import { Eyebrow } from './vintage/VintageKit'
 
@@ -361,27 +362,13 @@ function ArticlesCard({ stat, inView, reduce }: { stat: Stat; inView: boolean; r
   )
 }
 
-function ThumbUp({ size }: { size: string }) {
-  return (
-    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden style={{ display: 'block', filter: 'drop-shadow(0 4px 10px rgba(10,12,22,0.45))' }}>
-      <path
-        d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"
-        fill="#ffffff" stroke="var(--ink)" strokeWidth="1.5" strokeLinejoin="round"
-      />
-      <path d="M7 11v11" fill="none" stroke="var(--ink)" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  )
-}
-
 // Team satisfaction: the inner blue panel fills bottom-up to 93% on scroll (in
-// sync with the count-up number it reveals), and three thumbs-up pop in inside
-// the card corners with a spring — fully contained, nothing overhangs the
-// grid. Reduced-motion → blue pre-filled, no pop.
-const THUMBS = [
-  { style: { top: '14px', right: '16px' }, rot: 16, size: 'clamp(42px, 5.5vw, 60px)', delay: 0.55 },
-  { style: { bottom: '14px', right: '18px' }, rot: -14, size: 'clamp(36px, 4.8vw, 52px)', delay: 0.7 },
-  { style: { top: '38%', left: '16px' }, rot: -22, size: 'clamp(38px, 5vw, 56px)', delay: 0.85 },
-]
+// sync with the count-up number it reveals), then a vintage "APPROVED" rubber
+// stamp slams in over the lower-right corner — scaling down with a spring
+// overshoot, as if pressed onto the card. The stamp deliberately overhangs the
+// card's bottom-right edge (the panel itself isn't clipped; only the blue fill
+// is, via satClip). Reduced-motion → blue pre-filled, stamp shown static.
+const STAMP_ROT = -11
 function SatisfactionCard({ stat, inView, reduce }: { stat: Stat; inView: boolean; reduce: boolean }) {
   const value = useCountUp(stat.value, inView, reduce, 1150, 220 + 2 * 120)
   return (
@@ -393,17 +380,14 @@ function SatisfactionCard({ stat, inView, reduce }: { stat: Stat; inView: boolea
           <span style={styles.satLabelText}>{stat.label}</span>
         </div>
       </div>
-      {THUMBS.map((t, i) => (
-        <motion.div
-          key={i}
-          style={{ ...styles.thumb, ...t.style }}
-          initial={reduce ? false : { scale: 0, opacity: 0, rotate: t.rot }}
-          animate={inView ? { scale: 1, opacity: 1, rotate: t.rot } : {}}
-          transition={{ type: 'spring', stiffness: 320, damping: 16, delay: t.delay }}
-        >
-          <ThumbUp size={t.size} />
-        </motion.div>
-      ))}
+      <motion.img
+        src={approvedStamp}
+        alt="Approved"
+        style={styles.stamp}
+        initial={reduce ? false : { scale: 1.8, opacity: 0, rotate: STAMP_ROT }}
+        animate={inView ? { scale: 1, opacity: 1, rotate: STAMP_ROT } : {}}
+        transition={{ type: 'spring', stiffness: 300, damping: 13, delay: 0.65 }}
+      />
     </>
   )
 }
@@ -597,14 +581,15 @@ const styles: Record<string, React.CSSProperties> = {
     flex: '1 1 0',
     justifyContent: 'center',
   },
-  // --- Team satisfaction card: blue panel fills to 93%, thumbs pop in around it ---
+  // --- Team satisfaction card: blue panel fills to 93%, APPROVED stamp slams over ---
+  // NOTE: no `overflow: hidden` here — the stamp deliberately hangs past the bottom-right
+  // corner. The blue fill is clipped to the rounded card by `satClip` instead.
   satCard: {
     position: 'relative',
     background: 'transparent',
     border: 'none',
     padding: 0,
     borderRadius: '16px',
-    overflow: 'hidden',
     minHeight: 'clamp(220px, 24vw, 250px)',
   },
   satClip: {
@@ -649,9 +634,16 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 600,
     color: '#ffffff',
   },
-  thumb: {
+  stamp: {
     position: 'absolute',
-    zIndex: 2,
+    bottom: 'clamp(-26px, -3vw, -18px)',
+    right: 'clamp(-22px, -2.6vw, -14px)',
+    width: 'clamp(150px, 21vw, 220px)',
+    height: 'auto',
+    zIndex: 3,
+    pointerEvents: 'none',
+    transformOrigin: 'center',
+    filter: 'drop-shadow(0 6px 14px rgba(10,12,22,0.32))',
   },
   // --- Pageviews social card (cream surface, primary-blue accents) ---
   pvCard: {

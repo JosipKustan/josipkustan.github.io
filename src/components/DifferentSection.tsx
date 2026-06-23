@@ -48,10 +48,13 @@ const AP_SRC = {
 // the intact top vanishes into the Workflows section above). Header = orange mono
 // Eyebrow + Mozilla Text H2 + an Inter standfirst (muted cream, max ~60ch), CENTRED
 // with a soft text-shadow for legibility over the photo. Below
-// it an auto-grid of three pillar cards (--dark-card fill, navy border, 16px
-// radius): a Lucide icon (24px, 1.5 stroke) in an orange-tinted disc, a Mozilla
-// Text title, an Inter body. Scroll-in: stagger the cards (fade + y 28px, ~0.1s);
-// hover y:-3. Honour reduced-motion.
+// it an auto-grid of three pillar cards styled as editorial entries echoing the
+// FAQ column (--dark-card fill, navy border, lg radius, soft ink lift shadow):
+// a two-column grid of a Lucide icon (24px, 1.5 stroke, orange) in the gutter, then
+// a Mozilla Text title, a 48px burnt-orange rule that draws in from the left (scaleX 0→1),
+// and a Source Serif body led by an orange drop-cap first letter. Scroll-in:
+// stagger the cards (fade + y 28px, ~0.1s) with the rule drawing in beneath each
+// title; hover y:-3. Honour reduced-motion (no draw-in, static drop-cap/rule).
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PILLARS: { icon: React.ReactNode; title: string; body: string }[] = [
@@ -88,6 +91,12 @@ export default function DifferentSection() {
     hidden: { opacity: 0, y: 28 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
   }
+  // Burnt-orange rule draws in from the left beneath each title, echoing the FAQ
+  // editorial column. Propagates with the parent card's hidden/show state.
+  const rule: Variants = {
+    hidden: { scaleX: 0 },
+    show: { scaleX: 1, transition: { duration: 0.45, ease: EASE, delay: 0.1 } },
+  }
 
   return (
     <section style={s.section} id="different" ref={ref}>
@@ -112,10 +121,12 @@ export default function DifferentSection() {
             <SourceCite cite={AP_SRC.cite} href={AP_SRC.href}>
               Associated Press study put newsroom use near 70%
             </SourceCite>
-            . So instead of pretending otherwise, NewsLabs gives them a version they can control
-            and stand behind. Drafts come only from the wires, social feeds, and press releases
-            you choose. Every claim carries its source, and nothing leaves the desk until an
-            editor signs off. The byline stays human, and so does the judgment behind it.
+            .
+          </p>
+          <p style={s.standfirst}>
+            So instead of pretending otherwise, NewsLabs gives them a version they can control
+            and stand behind. Every claim carries its source, nothing leaves the desk until an
+            editor signs off, and the byline stays human.
           </p>
           {isMobile && (
             <p style={s.sourceLine}>
@@ -144,9 +155,21 @@ export default function DifferentSection() {
               variants={reduce ? undefined : card}
               whileHover={reduce ? undefined : { y: -3, transition: { duration: 0.18 } }}
             >
-              <span style={s.iconDisc}>{p.icon}</span>
-              <h3 style={s.cardTitle}>{p.title}</h3>
-              <p style={s.cardBody}>{p.body}</p>
+              <span style={s.icon} aria-hidden>
+                {p.icon}
+              </span>
+              <div style={s.cardBody}>
+                <h3 style={s.cardTitle}>{p.title}</h3>
+                <motion.span
+                  style={s.rule}
+                  variants={reduce ? undefined : rule}
+                  aria-hidden
+                />
+                <p style={s.body}>
+                  <span style={s.dropcap}>{p.body.slice(0, 1)}</span>
+                  {p.body.slice(1)}
+                </p>
+              </div>
             </motion.article>
           ))}
         </motion.div>
@@ -166,12 +189,13 @@ const s: Record<string, CSSProperties> = {
   section: {
     position: 'relative',
     backgroundColor: 'var(--ink)',
-    // Navy gradient layered over the photo: full ink at the top fading to fully
-    // transparent by the 70% mark, so the header + standfirst stay legible while the
-    // lower third of the photo shows at full strength. The gradient is listed first
-    // so it paints over the image, and sized 100% 100% so its 70% stop maps to the
-    // section's own height.
-    backgroundImage: `linear-gradient(180deg, #14182A 0%, rgba(20, 24, 42, 0) 70%), url(${typewriterBg})`,
+    // Navy gradient layered over the photo: it holds near-full ink through the top
+    // ~40% — the band the header + standfirst occupy, where the photo otherwise
+    // lightens and dropped text legibility — then fades to fully transparent by 82%
+    // so the lower third of the photo still shows at full strength behind the cards.
+    // Listed first so it paints over the image; sized 100% 100% so the stops map to
+    // the section's own height.
+    backgroundImage: `linear-gradient(180deg, #14182A 0%, #14182A 38%, rgba(20, 24, 42, 0) 82%), url(${typewriterBg})`,
     backgroundSize: '100% 100%, cover',
     backgroundPosition: 'top center, center',
     backgroundRepeat: 'no-repeat, no-repeat',
@@ -212,8 +236,9 @@ const s: Record<string, CSSProperties> = {
     fontSize: 'clamp(16px, 1.9vw, 20px)',
     lineHeight: 1.55,
     color: 'oklch(0.76 0.015 85)',
-    // Breathing room below the standfirst before the pillar cards.
-    margin: '0 0 clamp(20px, 3vw, 40px)',
+    // Spacing between the two standfirst paragraphs (and before the cards) is
+    // handled by the header's flex gap + the inner grid gap, so no own margin.
+    margin: 0,
     maxWidth: '60ch',
   },
   // Mobile-only caption: the citations that the desktop hover cards carry inline.
@@ -235,26 +260,34 @@ const s: Record<string, CSSProperties> = {
     gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
     gap: 'clamp(16px, 2vw, 24px)',
   },
+  // Editorial entry, FAQ-style: a mono section number in the gutter, the title set
+  // in Mozilla Text, a drawn-in burnt-orange rule, then a Source Serif body led by
+  // an orange drop-cap. Dark sheet with a soft ink lift (the dark-mode echo of the
+  // FAQ "open" white card), hover y:-3.
   card: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: '16px',
+    display: 'grid',
+    gridTemplateColumns: 'clamp(34px, 5vw, 46px) 1fr',
+    columnGap: 'clamp(16px, 2vw, 20px)',
+    alignItems: 'start',
     background: 'var(--dark-card)',
     border: '1px solid oklch(0.28 0.025 272)',
     borderRadius: 'var(--radius-lg)',
     padding: 'clamp(26px, 3vw, 34px)',
+    boxShadow:
+      '0 18px 44px -18px rgba(0, 0, 0, 0.45), 0 4px 12px -6px rgba(0, 0, 0, 0.30)',
   },
-  iconDisc: {
+  icon: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '46px',
-    height: '46px',
-    borderRadius: 'var(--radius-md)',
-    border: '1px solid oklch(0.3 0.025 272)',
-    background: 'oklch(0.215 0.036 273.5)',
     color: 'var(--brand-orange)',
+    paddingTop: '0.1em',
+  },
+  cardBody: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '14px',
   },
   cardTitle: {
     fontFamily: 'var(--font-display)',
@@ -265,11 +298,28 @@ const s: Record<string, CSSProperties> = {
     color: 'var(--cream)',
     margin: 0,
   },
-  cardBody: {
-    fontFamily: 'var(--font-sans)',
-    fontSize: 'clamp(14.5px, 1.6vw, 16px)',
-    lineHeight: 1.6,
+  rule: {
+    width: '48px',
+    height: '2px',
+    borderRadius: '2px',
+    background: 'var(--brand-orange)',
+    transformOrigin: 'left center',
+  },
+  body: {
+    fontFamily: 'var(--font-serif)',
+    fontSize: 'clamp(15px, 1.6vw, 17px)',
+    lineHeight: 1.62,
     color: 'var(--dark-muted)',
     margin: 0,
+  },
+  dropcap: {
+    float: 'left',
+    fontFamily: 'var(--font-serif)',
+    fontWeight: 600,
+    fontSize: '3.05em',
+    lineHeight: 0.78,
+    paddingTop: '0.06em',
+    paddingRight: '0.09em',
+    color: 'var(--brand-orange)',
   },
 }

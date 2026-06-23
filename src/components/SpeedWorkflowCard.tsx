@@ -117,7 +117,7 @@ export default function SpeedWorkflowCard() {
       while (alive) {
         for (let i = 0; i < STEPS.length; i++) {
           setStep(i)
-          await wait(i === STEPS.length - 1 ? 720 : 600)
+          await wait(i === STEPS.length - 1 ? 1050 : 880)
           if (!alive) return
         }
         // Cleared Publish → push the finished headline onto the list (newest
@@ -130,7 +130,7 @@ export default function SpeedWorkflowCard() {
         hiRef.current = (hiRef.current + 1) % HEADLINES.length
         setHeadlineIdx(hiRef.current)
         setStep(0)
-        await wait(420)
+        await wait(700)
         if (!alive) return
       }
     })()

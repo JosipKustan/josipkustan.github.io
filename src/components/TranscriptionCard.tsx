@@ -157,10 +157,8 @@ export default function TranscriptionCard() {
 
   return (
     <div ref={ref} style={styles.card}>
-      {/* ON AIR banner — the sign lights up while the briefing is playing,
-          dims back to off-air when paused. The warm glow is three stacked
-          inner shadows on an overlay (inset box-shadow doesn't paint over an
-          <img>, so it rides above it on a pointer-transparent layer). */}
+      {/* ON AIR banner — the sign brightens while the briefing is playing,
+          dims back to off-air when paused. */}
       <motion.div
         style={styles.onAirWrap}
         initial={reduce ? false : { opacity: 0, y: -8 }}
@@ -174,7 +172,6 @@ export default function TranscriptionCard() {
           animate={reduce ? undefined : { filter: playing ? 'brightness(1.06) contrast(1.02)' : 'brightness(0.9)' }}
           transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
         />
-        <span style={styles.onAirInset} aria-hidden />
       </motion.div>
 
       <span style={styles.tag}>05 · Audio → Story</span>
@@ -403,18 +400,6 @@ const styles: Record<string, React.CSSProperties> = {
     width: '100%',
     height: 'auto', // keep the image's native aspect ratio
     display: 'block',
-  },
-  onAirInset: {
-    position: 'absolute',
-    inset: 0,
-    borderRadius: '12px',
-    pointerEvents: 'none',
-    // Three inner shadows, matching the Framer effect stack:
-    boxShadow: [
-      'inset 0 0 21px 4.5px rgba(254, 213, 163, 0.85)',   // FED5A3 — soft outer halo
-      'inset 0 2.5px 10.95px 3px rgba(254, 213, 163, 0.85)', // FED5A3 — top falloff
-      'inset 0 2.5px 18px 7px rgba(255, 140, 0, 0.85)',    // FF8C00 — orange edge
-    ].join(', '),
   },
   tag: {
     display: 'inline-block',

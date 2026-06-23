@@ -8,6 +8,15 @@ import {
   INSTAGRAM_POST, INSTAGRAM_ARTICLE, YOUTUBE_POST, YOUTUBE_ARTICLE, LINKEDIN_POST, LINKEDIN_ARTICLE,
   FACEBOOK_POST, FACEBOOK_ARTICLE, PLATFORM_NOTES, type Platform,
 } from './social/socialContent'
+import { useAutoAdvance, useInteractionPause } from '../hooks/useAutoAdvance'
+
+// Auto-cycle order — when this card owns its platform (mobile/full chrome) it
+// steps to the next one every 3s on its own.
+const ORDER = PLATFORMS.map(p => p.id)
+
+// Full-chrome (mobile) card widths: posts stay phone-credible and centered in
+// the stage; articles spread wider. Both cap to the container on narrow phones.
+const FULL_WIDTHS = { post: 440, article: 600 } as const
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MOBILE social workflow card.
@@ -727,14 +736,47 @@ export default function SocialWorkflowCardMobile({
   chrome = 'full',
   platform,
   cardWidth,
+  onAutoAdvance,
+  interactionSignal = 0,
 }: {
   chrome?: 'full' | 'bare'
   platform?: Platform
   cardWidth?: { post: number; article: number }
+  // When the platform is driven from outside (desktop), the auto-loop calls this
+  // to ask the parent to move to the next platform — the card owns the post →
+  // article morph, the parent owns which platform is shown.
+  onAutoAdvance?: () => void
+  // Parent interactions (e.g. the desktop platform switcher) bump this so the
+  // card's 10s pause kicks in just like a tap on the card itself.
+  interactionSignal?: number
 } = {}) {
+  const isFull = chrome === 'full'
+  const controlled = platform !== undefined
   const [internalActive, setInternalActive] = useState<Platform>('x')
   const active = platform ?? internalActive
   const [mode, setMode] = useState<Mode>('post')
+
+  // Auto-loop (desktop only): post → its article → next social, one step every
+  // 3s. Any user interaction pauses it for 10s (then it resumes on its own).
+  // The mobile/full card stays put until the user taps — no auto-sequencing.
+  const { paused, notify } = useInteractionPause(10000)
+  const advancePlatform = () => {
+    if (controlled) onAutoAdvance?.()
+    else setInternalActive(prev => ORDER[(ORDER.indexOf(prev) + 1) % ORDER.length])
+  }
+  useAutoAdvance(() => {
+    if (mode === 'post') setMode('article')   // reveal the generated story…
+    else advancePlatform()                    // …then move on to the next social
+  }, 0, !paused && !isFull)
+
+  // Parent-side interactions pause the loop too (skip the initial value).
+  const lastSignal = useRef(interactionSignal)
+  useEffect(() => {
+    if (interactionSignal !== lastSignal.current) {
+      lastSignal.current = interactionSignal
+      notify()
+    }
+  }, [interactionSignal, notify])
 
   // Every platform opens on its native post first — also when the platform is
   // driven from outside. Adjusted during render so the incoming platform never
@@ -765,17 +807,21 @@ export default function SocialWorkflowCardMobile({
   const toggle = () => {
     if (!isBuilt) return
     setMode(prev => (prev === 'post' ? 'article' : 'post'))
+    notify()
   }
 
   const pickPlatform = (id: Platform) => {
     setInternalActive(id)
     setMode('post') // every platform opens on its native post first
+    notify()
   }
 
-  // Per-mode width (desktop bare mode only). Like the height, the window
-  // animates to it while the content inside is laid out at the target width
-  // immediately — same trick as the typewriter sizer, horizontally.
-  const width = cardWidth?.[mode]
+  // Per-mode width. Desktop (bare) supplies its own per-platform widths; the
+  // full mobile card centers posts at a phone width and spreads articles wider.
+  // Like the height, the card animates to it while the content inside is laid
+  // out at the target width immediately — the typewriter sizer trick, sideways.
+  const widths = isFull ? FULL_WIDTHS : cardWidth
+  const width = widths?.[mode]
 
   /* Content card — tap to morph. No `layout` on the card itself: the
      shared-element photos/covers still morph via their `layoutId`, but the
@@ -784,7 +830,7 @@ export default function SocialWorkflowCardMobile({
     <LayoutGroup>
       <motion.div
         onClick={toggle}
-        style={{ ...m.card, cursor: isBuilt ? 'pointer' : 'default' }}
+        style={{ ...m.card, ...(isFull ? { maxWidth: '100%' } : {}), cursor: isBuilt ? 'pointer' : 'default' }}
         initial={false}
         animate={{
           backgroundColor: darkPost ? darkPostColor : '#F9F7F4',
@@ -798,7 +844,7 @@ export default function SocialWorkflowCardMobile({
         }}
         whileTap={isBuilt ? { scale: 0.99 } : undefined}
       >
-        <div ref={innerRef} style={{ ...m.cardInner, ...(width != null ? { width } : {}) }}>
+        <div ref={innerRef} style={{ ...m.cardInner, ...(width != null ? { width } : {}), ...(isFull ? { maxWidth: '100%' } : {}) }}>
             {active === 'x' && (
               mode === 'post' ? (
                 <>
@@ -893,7 +939,11 @@ export default function SocialWorkflowCardMobile({
         )}
       </AnimatePresence>
 
-      {card}
+      {/* Centering wrapper: posts (capped to a phone width) sit centered in the
+          full-width frame; the card's height tracks its content (no fixed stage). */}
+      <div style={m.stage}>
+        {card}
+      </div>
     </div>
   )
 }
@@ -916,8 +966,6 @@ const m: Record<string, React.CSSProperties> = {
   frame: {
     position: 'relative',
     width: '100%',
-    maxWidth: 380,
-    margin: '0 auto',
     background: 'var(--ink)',
     border: '1px solid var(--dark-border)',
     borderRadius: 24,
@@ -977,6 +1025,16 @@ const m: Record<string, React.CSSProperties> = {
     color: '#F9F7F4',
     margin: 0,
     zIndex: 1,
+  },
+  // Centering wrapper (full chrome): keeps the width-capped card centered in the
+  // full-width frame. Height follows the card's content.
+  stage: {
+    position: 'relative',
+    zIndex: 1,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   card: {
     position: 'relative',

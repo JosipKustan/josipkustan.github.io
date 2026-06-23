@@ -7,18 +7,19 @@ import { useIsMobile } from '../hooks/useMediaQuery'
 // source. On desktop, hovering (or focusing) the highlighted phrase reveals a
 // small SOURCE card — an orange "Source" tag + the attribution as a link out —
 // reusing the popover look of FactCheckCard so the page keeps one sourcing
-// visual. The phrase itself carries the same brand-blue highlight as the claim
-// runs in that card (a resting tint that intensifies while the card is open),
-// not an underline. On mobile there's no hover, so the phrase renders as plain
-// text and the host section lists the sources as a caption beneath the
-// paragraph instead (see DifferentSection). Traceability, not fact-checking:
-// this points to where a figure came from, it does not verify it.
+// visual. The phrase itself is set apart by editorial emphasis: white text + a
+// thin burnt-orange underline (NOT a fill block — a blue tint read as an OS
+// text-selection glitch). On hover the underline thickens and a faint warm orange
+// wash appears while the card is open. On mobile there's no hover, so the phrase
+// renders as plain text and the host section lists the sources as a caption
+// beneath the paragraph instead (see DifferentSection). Traceability, not
+// fact-checking: this points to where a figure came from, it does not verify it.
 //
-// Framer note: in Framer this is a Link with a brand-blue highlight fill
-// (rgba(75,101,255,0.28) at rest → 0.92 + white text on hover) + a hover-revealed
-// overlay card (orange tag, italic Source Serif attribution linking out). On the
-// mobile breakpoint, drop the hover card and show a "Sources: …" caption line
-// under the paragraph instead.
+// Framer note: in Framer this is a Link with white text + a 1px burnt-orange
+// underline (thickening to 2px + a rgba(255,140,0,0.16) wash on hover) + a
+// hover-revealed overlay card (orange tag, italic Source Serif attribution linking
+// out). On the mobile breakpoint, drop the hover card and show a "Sources: …"
+// caption line under the paragraph instead.
 // ─────────────────────────────────────────────────────────────────────────────
 
 type Props = {
@@ -82,22 +83,28 @@ const s: Record<string, CSSProperties> = {
   wrap: {
     position: 'relative',
   },
-  // No underline — a soft brand-blue highlight, mirroring the claim runs in the
-  // "Trace every claim back to its source" card (FactCheckCard): a resting tint
-  // that intensifies to full strength while the source card is open.
+  // Deliberate editorial emphasis — NOT a fill block (the old brand-blue tint read
+  // as an OS text-selection glitch). The cited phrase brightens to white and carries
+  // a thin burnt-orange underline; hovering thickens the underline and adds a faint
+  // warm wash (orange, never blue, so it can't be mistaken for ::selection) while the
+  // source card is open.
   trigger: {
     cursor: 'help',
-    background: 'rgba(75,101,255,0.28)',
-    borderRadius: '4px',
-    padding: '1px 4px',
-    transition: 'background 0.2s ease, color 0.2s ease',
-    // keep the highlight box clean if the phrase wraps across lines
+    color: '#ffffff',
+    padding: '1px 3px',
+    borderRadius: '3px',
+    textDecorationLine: 'underline',
+    textDecorationColor: 'var(--brand-orange)',
+    textDecorationThickness: '1px',
+    textUnderlineOffset: '3px',
+    transition: 'background 0.2s ease, text-decoration-thickness 0.2s ease',
+    // keep the underline/wash clean if the phrase wraps across lines
     WebkitBoxDecorationBreak: 'clone',
     boxDecorationBreak: 'clone',
   } as CSSProperties,
   triggerActive: {
-    background: 'rgba(75,101,255,0.92)',
-    color: '#ffffff',
+    background: 'rgba(255, 140, 0, 0.16)',
+    textDecorationThickness: '2px',
   },
   // The card sits just above the phrase, anchored to its start.
   card: {

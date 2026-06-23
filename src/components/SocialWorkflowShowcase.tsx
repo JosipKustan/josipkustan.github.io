@@ -5,6 +5,9 @@ import SocialWorkflowCardMobile from './SocialWorkflowCardMobile'
 import { PLATFORMS, type Platform } from './social/socialContent'
 import { useIsTightDesktop } from '../hooks/useMediaQuery'
 
+// Auto-cycle order — the card walks post → article → next social on its own.
+const ORDER = PLATFORMS.map(p => p.id)
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Desktop framing for the social workflow card.
 //
@@ -44,6 +47,17 @@ export default function SocialWorkflowShowcase() {
   const stacked = useIsTightDesktop()
   const [active, setActive] = useState<Platform>('x')
 
+  // The card owns the post → article morph and asks us to advance the platform
+  // (`onAutoAdvance`). Manual platform picks bump `interactionSignal` so the
+  // card pauses its auto-loop for 10s, exactly like tapping the card.
+  const [interactionSignal, setInteractionSignal] = useState(0)
+  const advance = () => setActive(prev => ORDER[(ORDER.indexOf(prev) + 1) % ORDER.length])
+
+  const pick = (id: Platform) => {
+    setActive(id)
+    setInteractionSignal(s => s + 1)
+  }
+
   return (
     <WorkflowCardFrame>
       <div style={{ ...s.layout, ...(stacked ? s.layoutStacked : s.layoutWide) }}>
@@ -65,7 +79,7 @@ export default function SocialWorkflowShowcase() {
                 aria-selected={active === id}
                 title={label}
                 style={{ ...s.platformBtn, ...(active === id ? s.platformBtnActive : {}) }}
-                onClick={() => setActive(id)}
+                onClick={() => pick(id)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.93 }}
               >
@@ -83,6 +97,8 @@ export default function SocialWorkflowShowcase() {
             chrome="bare"
             platform={active}
             cardWidth={{ post: POST_WIDTH[active], article: ARTICLE_WIDTH }}
+            onAutoAdvance={advance}
+            interactionSignal={interactionSignal}
           />
         </div>
       </div>
